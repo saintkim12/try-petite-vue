@@ -16,6 +16,14 @@
     {{ count }}
     <button @click="count++">inc</button>
   </div>
+  <div v-scope="{ count: 0 }">
+    {{ count }}
+    <button @click="count++">inc</button>
+  </div>
+  <div v-scope="{ count: 0 }">
+    <div v-effect="$el.textContent = count"></div>
+    <button @click="count++">++</button>
+  </div>
 
   <!-- petite-vue -->
   <script>
