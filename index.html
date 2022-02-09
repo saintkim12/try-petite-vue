@@ -11,72 +11,32 @@
   <title>Document</title>
 </head>
 
-<body>
-  <!-- 1. 기본 사용법 -->
-  <div v-scope="{ count: 0 }">
-    {{ count }}
-    <button @click="count++">inc</button>
-  </div>
-  <!-- 2. 여러개도 문제없음 -->
-  <div v-scope="{ count: 0 }">
-    {{ count }}
-    <button @click="count++">inc</button>
-  </div>
-  <!--
-    3. v-effect로 반응형 값을 인라인 적용
-    v-scope의 count가 변경될 때 div의 textContent를 변경
-  -->
-  <div v-scope="{ count: 0 }">
-    <div v-effect="$el.textContent = count"></div>
-    <button @click="count++">++</button>
-  </div>
+<body><script type="module">
+  import { createApp } from 'https://unpkg.com/petite-vue?module'
 
-  <!-- 4. (Function)Component 형태로 사용 -->
-  <div v-scope="Counter({ count: 15 })" @vue:mounted="mounted">
-    <p>{{ count }}</p>
-    <button @click="inc">increment</button>
-  </div>
-
-  <!-- 5. html templete 사용 -->
-  <templete id="counter-templete">
-    From counter-templete is {{ count }}
-    <button @click="inc">++</button>
-  </templete>
-  <div v-scope="TempleteCounter({ count: 1 })" @vue:mounted="mounted"></div>
-  <div v-scope="TempleteCounter({ count: 2 })" @vue:mounted="mounted"></div>
-
-  <!-- petite-vue -->
-  <script>
-    // 4. (Function)Component 형태로 사용
-    function Counter(props) {
-      return {
-        count: props.count,
-        inc() {
-          this.count++
-        },
-        mounted() {
-          console.log('mounted')
-        },
+  function Counter(props) {
+    return {
+      $template: '#counter-template',
+      count: props.initialCount,
+      inc() {
+        this.count++
       }
     }
-    function TempleteCounter(props) {
-      return {
-        $templete: '#counter-templete',
-        // ...Counter(props),
-        count: props.count,
-        inc() {
-          this.count++
-        },
-        mounted() {
-          console.log('TempleteCounter mounted')
-        },
-      }
-    }
-    PetiteVue.createApp({
-      Counter,
-      TempleteCounter,
-    }).mount()
-  </script>
+  }
+
+  createApp({
+    Counter
+  }).mount()
+</script>
+
+<template id="counter-template">
+  My count is {{ count }}
+  <button @click="inc">++</button>
+</template>
+
+<!-- reuse it -->
+<div v-scope="Counter({ initialCount: 1 })"></div>
+<div v-scope="Counter({ initialCount: 2 })"></div>
 </body>
 
 </html>
