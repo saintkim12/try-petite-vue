@@ -7,13 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- petite-vue -->
-  <!-- <script src="https://unpkg.com/petite-vue"></script> -->
-  <title>Document</title>
+  <script src="https://unpkg.com/petite-vue"></script>
+  <title>1</title>
 </head>
 
-<body><script type="module">
-  import { createApp } from 'https://unpkg.com/petite-vue?module'
-
+<body>
+  <script>
   function Counter(props) {
     return {
       $template: '#counter-template',
@@ -24,7 +23,7 @@
     }
   }
 
-  createApp({
+  PetiteVue.createApp({
     Counter
   }).mount()
 </script>
