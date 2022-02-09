@@ -37,6 +37,14 @@
     <button @click="inc">increment</button>
   </div>
 
+  <!-- 5. html templete 사용 -->
+  <templete id="counter-templete">
+    From counter-templete: {{ count }}
+    <button @click="inc">++</button>
+  </templete>
+  <div v-scope="Counter({ count: 1 })"></div>
+  <div v-scope="Counter({ count: 2 })"></div>
+
   <!-- petite-vue -->
   <script>
     // 4. (Function)Component 형태로 사용
