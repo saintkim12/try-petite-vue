@@ -42,8 +42,8 @@
     From counter-templete: {{ count }}
     <button @click="inc">++</button>
   </templete>
-  <div v-scope="Counter({ count: 1 })"></div>
-  <div v-scope="Counter({ count: 2 })"></div>
+  <div v-scope="TempleteCounter({ count: 1 })"></div>
+  <div v-scope="TempleteCounter({ count: 2 })"></div>
 
   <!-- petite-vue -->
   <script>
@@ -59,8 +59,22 @@
         },
       }
     }
+    function TempleteCounter(props) {
+      return {
+        $templete: '#counter-templete',
+        // ...Counter(props),
+        count: props.count,
+        inc() {
+          this.count++
+        },
+        mounted() {
+          console.log('mounted')
+        },
+      }
+    }
     PetiteVue.createApp({
-      Counter
+      Counter,
+      TempleteCounter,
     }).mount()
   </script>
 </body>
