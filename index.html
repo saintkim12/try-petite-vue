@@ -42,8 +42,8 @@
     From counter-templete is {{ count }}
     <button @click="inc">++</button>
   </templete>
-  <div v-scope="TempleteCounter({ count: 1 })"></div>
-  <div v-scope="TempleteCounter({ count: 2 })"></div>
+  <div v-scope="TempleteCounter({ count: 1 })" @vue:mounted="mounted"></div>
+  <div v-scope="TempleteCounter({ count: 2 })" @vue:mounted="mounted"></div>
 
   <!-- petite-vue -->
   <script>
@@ -68,7 +68,7 @@
           this.count++
         },
         mounted() {
-          console.log('mounted')
+          console.log('TempleteCounter mounted')
         },
       }
     }
