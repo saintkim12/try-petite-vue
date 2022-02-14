@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/petite-vue"></script>
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope="LogApp()"><!-- 함수형 컴포넌트를 실행하는 형태로 컴포넌트를 초기화한다 -->
+    <div class="input-wrap">
+      <input type="text" v-model="inputText" />
+      <button @click="addLogList">입력</button>
+    </div>
+    <div class="input-log-wrap">
+      <div v-for="(log, idx) in logList" :key="idx">
+        <p>
+          [<span>{{ log.timestamp }}</span>]
+          {{ log.text }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <script>
+    // log-app 기능을 LogApp 컴포넌트(함수형)으로 분리한다
+    function LogApp(props) {
+      return {
+        logList: [],
+        inputText: '초기값',
+        addLogList: function() {
+          this.logList.push({ text: this.inputText, timestamp: new Date() })
+          this.inputText = ''
+        }
+      }
+    }
+    PetiteVue.createApp({
+      // 컴포넌트 자체를 넘긴다
+      LogApp
+    }).mount()
+  </script>
+</body>
+</html>

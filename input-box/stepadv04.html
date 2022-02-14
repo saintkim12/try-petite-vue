@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/petite-vue"></script>
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope="LogApp()">
+    <div class="input-wrap">
+      <input type="text" v-model="state.inputText" /><!-- state로 감싼 형태로 값을 정의했으므로 호출시에도 변경 -->
+      <button @click="addLogList">입력</button>
+    </div>
+    <div class="input-log-wrap">
+      <div v-for="(log, idx) in state.logList" :key="idx"><!-- state로 감싼 형태로 값을 정의했으므로 호출시에도 변경 -->
+        <p>
+          [<span>{{ log.timestamp }}</span>]
+          {{ log.text }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <script>
+    function LogApp(props) {
+      // Vue 3 reactive 기능과 비슷하게, 값이 변경될 경우 자동적으로 vue에서 처리하도록 reactive()로 객체를 감쌀 수 있다
+      const state = PetiteVue.reactive({
+        logList: [],
+        inputText: '초기값',
+      })
+      return {
+        state,
+        addLogList: () => { /* this를 사용하지 않으므로 es6 arrow function 사용 가능 */
+          // this.* 대신 state.*으로 변경
+          state.logList.push({ text: state.inputText, timestamp: new Date() })
+          state.inputText = ''
+        }
+      }
+    }
+    PetiteVue.createApp({
+      LogApp
+    }).mount()
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/petite-vue" defer init></script>
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope="{ inputText: '초기값' }"><!-- 값은 Javascript Object 형태로 준다. -->
+    <div class="input-wrap">
+      <!--
+        위에서 선언한 v-scope의 값에 속성을 연결하기 위한 colon(:) 문법 - 정확히는 v-bind:[속성명] - 을 사용하여 값을 지정한다.
+        속성의 값은 v-scope에서 사용한 변수명을 전달하면 된다.
+      -->
+      <input type="text" :value="inputText" />
+      <button>입력</button>
+    </div>
+    <div class="input-log-wrap">
+      <!-- 입력 결과 확인 창(chat log) -->
+    </div>
+  </div>
+</body>
+</html>

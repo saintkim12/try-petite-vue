@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/petite-vue" defer init></script>
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope="{ logList: [], inputText: '초기값' }"><!-- 값은 Javascript Object 형태로 준다. -->
+    <div class="input-wrap">
+      <input type="text" v-model="inputText" />
+      <!--
+        click 이벤트를 정의하기 위해 @ 문법 - 정확히는 v-on:[이벤트명] - 을 사용하여 이벤트를 지정한다.
+        속성의 값은 중괄호로 감싸진 함수라고 생각하고 내용을 작성하면 된다. (= 여러 줄은 세미콜론(;)을 사용하면 된다)
+        나중에 함수 내용이 길고 복잡해지면 javascript에서 함수를 선언하고 그 함수명을 부르는 방식으로 전환한다.
+      -->
+      <button @click="logList.push(inputText); inputText = '';">입력</button><!-- Array.push를 사용하여 값을 배열 저장한 후, 입력값을 초기화한다. -->
+    </div>
+    <div class="input-log-wrap">
+      <!-- 입력 결과 확인 창(chat log) -->
+    </div>
+  </div>
+</body>
+</html>

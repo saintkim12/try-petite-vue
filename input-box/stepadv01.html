@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- defer, init 삭제 -->
+  <script src="//unpkg.com/petite-vue"></script>
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope="{ logList: [], inputText: '초기값' }">
+    <div class="input-wrap">
+      <input type="text" v-model="inputText" />
+      <button @click="logList.push({ text: inputText, timestamp: new Date() }); inputText = '';">입력</button>
+    </div>
+    <div class="input-log-wrap">
+      <div v-for="(log, idx) in logList" :key="idx">
+        <p>
+          [<span>{{ log.timestamp }}</span>]
+          {{ log.text }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 수동으로 petite-vue app을 생성하고 마운트해준다.
+    PetiteVue.createApp().mount()
+  </script>
+  <!-- 혹시 es module 방식에 익숙하다면 -->
+  <!--
+    <script type="module">
+      import { createApp } from 'https://unpkg.com/petite-vue?module'
+      createApp().mount()
+    </script>
+  -->
+</body>
+</html>

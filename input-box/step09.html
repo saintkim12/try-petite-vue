@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/petite-vue" defer init></script>
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope="{ logList: [], inputText: '초기값' }">
+    <div class="input-wrap">
+      <input type="text" v-model="inputText" />
+      <button @click="logList.push({ text: inputText, timestamp: new Date() }); inputText = '';">입력</button>
+      <!-- 이제 기존 string 대신 object({ text: string, timestamp: Date }) 구조가 들어간다. -->
+    </div>
+    <div class="input-log-wrap">
+      <div v-for="(log, idx) in logList" :key="idx">
+        <p>
+          <!-- 기존 string 대신 object 구조로 변경한 값에 맞춰 값을 가져온다. -->
+          [<span>{{ log.timestamp }}</span>]
+          {{ log.text }}
+        </p>
+      </div>
+      <!-- 혹시 es6 구조할당분해에 익숙하다면 다음과 같이 해도 좋다. -->
+      <!--
+      <div v-for="({ text, timestamp }, idx) in logList" :key="idx">
+        <p>
+          <span>[{{ timestamp }}]</span>
+          {{ text }}
+        </p>
+      </div>
+      -->
+    </div>
+  </div>
+</body>
+</html>

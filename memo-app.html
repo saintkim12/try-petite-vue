@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/petite-vue"></script>
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+      overflow-y: auto;
+      background-color: greenyellow;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope="App()"></div>
+
+  <script>
+    const store = PetiteVue.reactive({
+      memoList: [
+        { id: 1, title: 'item 1', content: 'hahaho' }
+      ],
+      memoId: undefined,
+    })
+    function App(props) {
+      return {
+        $template: /* html */`
+          <div class="flex h-screen">
+            <div class="memo-list-wrap w-1/2">
+              <div>
+                <button>신규</button>
+              </div>
+              <div
+                v-for="memo in store.memoList"
+                class="flex justify-between"
+              >
+                <p @click="store.memoId = memo.id">{{ memo.title }}</p> <button>삭제</button>
+              </div>
+            </div>
+            <div class="memo-detail-wrap w-1/2">
+              <template v-if="!store.memoId"></template>
+              <template v-else>
+                <div>
+                  <button>삭제</button>
+                </div>
+                <div>
+                  <input
+                    class="w-full"
+                    v-model="store.memoList.find(({ id }) => id === store.memoId)?.title"
+                  />
+                </div>
+                <div class="mt-1 h-96">
+                  <textarea
+                    class="w-full h-full"
+                    v-model="store.memoList.find(({ id }) => id === store.memoId)?.content"
+                  ></textarea>
+                </div>
+              </template>
+            </div>
+          </div>
+        `
+      }
+    }
+    PetiteVue.createApp({
+      App,
+      store,
+    }).mount()
+  </script>
+</body>
+</html>

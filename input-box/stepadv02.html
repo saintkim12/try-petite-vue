@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/petite-vue"></script>
+  <link rel="stylesheet" href="//unpkg.com/normalize.css">
+  <style>
+    * {
+      box-sizing: content-box;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div id="app" v-scope><!-- v-scope의 속성 제거(global 속성으로 이용) -->
+    <div class="input-wrap">
+      <input type="text" v-model="inputText" />
+      <button @click="addLogList">입력</button><!-- @click에 함수명을 지정 -->
+    </div>
+    <div class="input-log-wrap">
+      <div v-for="(log, idx) in logList" :key="idx">
+        <p>
+          [<span>{{ log.timestamp }}</span>]
+          {{ log.text }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <script>
+    PetiteVue.createApp({
+      // v-scope의 값을 여기서 선언해줘야 함수에서 해당 값을 사용할 수 있다
+      logList: [],
+      inputText: '초기값',
+      
+      addLogList: function() { // 기존 인라인 함수 대신 ``addLogList`` 값을 전달한다
+        // 기존 v-scope의 값은 여기서 this.* 형태로 사용할 수 있다
+        // logList.push({ text: inputText, timestamp: new Date() });
+        // inputText = '';
+        // console.log(this)
+        this.logList.push({ text: this.inputText, timestamp: new Date() })
+        this.inputText = ''
+      }
+    }).mount()
+  </script>
+</body>
+</html>
