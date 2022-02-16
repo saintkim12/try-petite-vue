@@ -107,9 +107,9 @@
 </li>
 </ul>
 </li>
-<li>unpkg의 petite-vue를 include한다.<br />일단은 자동 초기화를 할 것이기 때문에 script 속성으로 <code>defer</code>과 <code>init</code>을 추가한다.<br /><code>&lt;script src="//unpkg.com/petite-vue" defer init&gt;&lt;/script&gt;</code></li>
+<li>unpkg의 petite-vue를 include한다.<br />일단은 자동 초기화를 할 것이기 때문에 script 속성으로 <code>defer</code>과 <code>init</code>을 추가한다.<br /><code>&lt;script src="https://unpkg.com/petite-vue" defer init&gt;&lt;/script&gt;</code></li>
 <li>기본 css 및 골격을 작성한다 (css에 대한 이해도가 없으면 넘어가거나 그냥 붙여넣어도 좋다)<br />
-<pre id="code_1644831456016" class="html xml" data-ke-language="html" data-ke-type="codeblock"><code>&lt;link rel="stylesheet" href="//unpkg.com/normalize.css"&gt;
+<pre id="code_1644831456016" class="html xml" data-ke-language="html" data-ke-type="codeblock"><code>&lt;link rel="stylesheet" href="https://unpkg.com/normalize.css"&gt;
 &lt;style&gt;
   * {
     box-sizing: content-box;
@@ -196,7 +196,7 @@
 </ul>
 </li>
 <li><code>&lt;script&gt; // 수동으로 petite-vue app을 생성하고 마운트해준다. PetiteVue.createApp().mount() &lt;/script&gt; &lt;!-- 혹시 es module 방식에 익숙하다면 --&gt; &lt;!-- &lt;script type="module"&gt; import { createApp } from 'https://unpkg.com/petite-vue?module' createApp().mount() &lt;/script&gt; --&gt;</code></li>
-<li><code>&lt;!-- defer, init 삭제 --&gt; &lt;script src="//unpkg.com/petite-vue"&gt;&lt;/script&gt;</code></li>
+<li><code>&lt;!-- defer, init 삭제 --&gt; &lt;script src="https://unpkg.com/petite-vue"&gt;&lt;/script&gt;</code></li>
 <li>이벤트 함수, v-scope 변수를 javascript에서 정의하기
 <ul style="list-style-type: disc;" data-ke-list-type="disc">
 <li>html 속성으로 복잡한(두 줄 이상의, 또는 라이브러리 함수가 연관된) 함수를 정의하는 것은 불가능하거나 속성이 복잡해진다.</li>
