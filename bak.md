@@ -240,8 +240,7 @@
     ```html
     <!-- defer, init 삭제 -->
     <script src="https://unpkg.com/petite-vue"></script>
-    ```
-    ```html
+    <!-- ... -->
     <script>
       // 수동으로 petite-vue app을 생성하고 마운트해준다.
       PetiteVue.createApp().mount()
@@ -260,22 +259,6 @@
     - html 속성으로 복잡한(두 줄 이상의, 또는 라이브러리 함수가 연관된) 함수를 정의하는 것은 불가능하거나 속성이 복잡해진다.
     - 따라서 함수를 javascript에서 정의하고, 해당 함수명을 호출하는 방식으로 변경한다.
     - 함수 내에서 v-scope의 변수를 사용하기 위해서는 createApp의 파라미터로 값이 선언되어야 하므로 결국 **javascript에서 변수를 선언하도록 변경**하여야 한다.
-    ```js
-    PetiteVue.createApp({
-      // v-scope의 값을 여기서 선언해줘야 함수에서 해당 값을 사용할 수 있다
-      logList: [],
-      inputText: '초기값',
-      
-      addLogList: function() { // 기존 인라인 함수 대신 ``addLogList`` 값을 전달한다
-        // 기존 v-scope의 값은 여기서 this.* 형태로 사용할 수 있다
-        // logList.push({ text: inputText, timestamp: new Date() });
-        // inputText = '';
-        // console.log(this)
-        this.logList.push({ text: this.inputText, timestamp: new Date() })
-        this.inputText = ''
-      }
-    }).mount()
-    ```
     ```html
     <!-- v-scope의 속성 제거(global 속성으로 이용) -->
     <div id="app" v-scope>
@@ -284,6 +267,24 @@
         <button @click="addLogList">입력</button>
       ...
     </div>
+    <!-- ... -->
+    <script>
+      // ...
+      PetiteVue.createApp({
+        // v-scope의 값을 여기서 선언해줘야 함수에서 해당 값을 사용할 수 있다
+        logList: [],
+        inputText: '초기값',
+        
+        addLogList: function() { // 기존 인라인 함수 대신 ``addLogList`` 값을 전달한다
+          // 기존 v-scope의 값은 여기서 this.* 형태로 사용할 수 있다
+          // logList.push({ text: inputText, timestamp: new Date() });
+          // inputText = '';
+          // console.log(this)
+          this.logList.push({ text: this.inputText, timestamp: new Date() })
+          this.inputText = ''
+        }
+      }).mount()
+    </script>
     ```
 1.   정의했던 기능들을 함수형 컴포넌트 LogApp으로 만들기
     -    기능을 재사용할 수 있도록 컴포넌트화해본다.
